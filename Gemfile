@@ -6,4 +6,5 @@ gemspec
 group :test do
   gem 'ruby_gntp'
   gem 'coveralls', require: false
+  gem 'debugger'
 end

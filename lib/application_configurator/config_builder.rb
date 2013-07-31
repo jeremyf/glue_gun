@@ -1,8 +1,10 @@
-require 'application_configurator/config_builder/command'
+require 'application_configurator/config_builder/commands'
 module ApplicationConfigurator
   class ConfigBuilder
+    attr_reader :operations
     def initialize(context)
       @context = context
+      @operations = []
     end
 
     def method_missing(method_name, *args, &block)
@@ -20,6 +22,14 @@ module ApplicationConfigurator
       Commands.const_defined?(command_name) || super
     rescue NameError
       super
+    end
+
+    def defer(&deferred_operation)
+      operations << deferred_operation
+    end
+
+    def configure!
+      operations.each { |operation| operation.call }
     end
 
     private
