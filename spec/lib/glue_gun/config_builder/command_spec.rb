@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module ApplicationConfigurator
+module GlueGun
   describe ConfigBuilder::Command do
     it 'is abstract' do
       command = ConfigBuilder::Command.new(ConfigBuilder.new(nil))

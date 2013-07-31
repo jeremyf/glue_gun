@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe ApplicationConfigurator do
+describe GlueGun do
   describe 'before_method command' do
     let(:klass) {
       Class.new {
@@ -15,7 +15,7 @@ describe ApplicationConfigurator do
     before(:each) do
       $receiver = []
       $other_receiver = []
-      ApplicationConfigurator do |config|
+      GlueGun do |config|
         config.before_method(klass, :foo) << lambda { |object|
           $receiver << object
         }
@@ -28,7 +28,7 @@ describe ApplicationConfigurator do
     let(:klass_instance) { klass.new }
 
     it 'runs the configuration block when method is called' do
-      ApplicationConfigurator.configure!
+      GlueGun.configure!
       expect {
         expect {
           klass_instance.foo

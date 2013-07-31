@@ -1,8 +1,8 @@
-require 'application_configurator/config_builder/command'
-module ApplicationConfigurator
+require 'glue_gun/config_builder/command'
+module GlueGun
   class ConfigBuilder
     module Commands
-      class BeforeMethod < ApplicationConfigurator::ConfigBuilder::Command
+      class BeforeMethod < GlueGun::ConfigBuilder::Command
 
         attr_reader :klass, :method_name
         def initialize(builder, klass, method_name)

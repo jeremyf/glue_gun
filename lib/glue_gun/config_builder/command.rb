@@ -1,4 +1,4 @@
-module ApplicationConfigurator
+module GlueGun
   class ConfigBuilder
     class Command
       def self.new(builder, *args)

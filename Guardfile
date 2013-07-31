@@ -4,7 +4,7 @@
 guard 'rspec' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch(%r{^lib/application_configurator/config_builder/commands/.rb$})  { "spec" }
+  watch(%r{^lib/glue_gun/config_builder/commands/.rb$})  { "spec" }
   watch('spec/spec_helper.rb')  { "spec" }
   watch('spec/support/*')  { "spec" }
 end

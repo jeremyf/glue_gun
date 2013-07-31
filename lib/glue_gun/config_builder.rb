@@ -1,5 +1,5 @@
-require 'application_configurator/config_builder/commands'
-module ApplicationConfigurator
+require 'glue_gun/config_builder/commands'
+module GlueGun
   class ConfigBuilder
     attr_reader :operations
     def initialize(context)

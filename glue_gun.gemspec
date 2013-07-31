@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'application_configurator/version'
+require 'glue_gun/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "application_configurator"
-  spec.version       = ApplicationConfigurator::VERSION
+  spec.name          = "glue_gun"
+  spec.version       = GlueGun::VERSION
   spec.authors       = ["Jeremy Friesen"]
   spec.email         = ["jeremy.n.friesen@gmail.com"]
   spec.description   = %q{TODO: Write a gem description}

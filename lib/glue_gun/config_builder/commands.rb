@@ -1,4 +1,4 @@
-module ApplicationConfigurator
+module GlueGun
   class ConfigBuilder
     module Commands
     end

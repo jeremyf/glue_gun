@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module ApplicationConfigurator
+module GlueGun
   class ConfigBuilder
     module Commands
       class TestCommand
@@ -11,7 +11,7 @@ module ApplicationConfigurator
   describe ConfigBuilder do
 
     let(:container) { double }
-    subject { ApplicationConfigurator::ConfigBuilder.new(container) }
+    subject { GlueGun::ConfigBuilder.new(container) }
 
     it 'responds to commands defined in ConfigBuilder::Commands' do
       expect(subject).to respond_to(:test_command)
