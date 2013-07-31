@@ -13,7 +13,9 @@ module ApplicationConfigurator
   end
 end
 
-def ApplicationConfigurator(config)
+def ApplicationConfigurator(config = ApplicationConfigurator::ConfigBuilder.new)
   yield(config) if block_given?
   ApplicationConfigurator.configuration = config
 end
+
+require 'application_configurator/config_builder'
