@@ -4,25 +4,47 @@ describe ApplicationConfigurator do
   describe 'before_method command' do
     let(:klass) {
       Class.new {
-        def foo; end
+        def initialize
+          @counter = 0
+        end
+        attr_reader :counter
+        def foo
+          @counter += 1
+        end
       }
     }
     before(:each) do
       $receiver = []
+      $other_receiver = []
       ApplicationConfigurator do |config|
-        config.before_method(klass, :foo) do |object|
+        config.before_method(klass, :foo) << lambda { |object|
           $receiver << object
-        end
+        }
+
+        config.before_method(klass, :foo) << lambda { |object|
+          $other_receiver << 1
+        }
       end
-      ApplicationConfigurator.configure!
     end
     let(:klass_instance) { klass.new }
 
     it 'runs the configuration block when method is called' do
-      klass_instance
+      ApplicationConfigurator.configure!
       expect {
-        klass_instance.foo
+        expect {
+          klass_instance.foo
+        }.to change { $other_receiver }.from([]).to([1])
       }.to change { $receiver }.from([]).to([klass_instance])
+      expect(klass_instance.counter).to eq(1)
+    end
+
+    it 'does not apply configuration until configurator is configured!' do
+      expect {
+        expect {
+          klass_instance.foo
+        }.to_not change { $other_receiver }
+      }.to_not change { $receiver }
+      expect(klass_instance.counter).to eq(1)
     end
   end
 

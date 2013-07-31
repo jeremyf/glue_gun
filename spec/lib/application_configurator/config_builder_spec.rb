@@ -22,8 +22,7 @@ module ApplicationConfigurator
       ConfigBuilder::Commands::TestCommand.should_receive(:new).
         with(subject, "foo", 42).
         and_return(test_command)
-      test_command.should_receive(:call).and_return("COMMAND RESULT")
-      expect(subject.test_command("foo", 42)).to eq("COMMAND RESULT")
+      expect(subject.test_command("foo", 42)).to eq(test_command)
     end
 
     it 'handles missing non-command missing methods normally' do

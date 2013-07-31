@@ -4,14 +4,13 @@ module ApplicationConfigurator
     attr_reader :operations
     def initialize(context)
       @context = context
-      @operations = []
     end
 
     def method_missing(method_name, *args, &block)
       command_name = command_name_for_method(method_name)
       if Commands.const_defined?(command_name)
         command_class = Commands.const_get(command_name)
-        command_class.new(self, *args, &block).call
+        command_class.new(self, *args, &block)
       else
         super
       end
@@ -24,12 +23,18 @@ module ApplicationConfigurator
       super
     end
 
-    def defer(&deferred_operation)
-      operations << deferred_operation
+    def configure!
+      deferred_commands.each { |commands| commands.call }
     end
 
-    def configure!
-      operations.each { |operation| operation.call }
+    def cached_command(*args)
+      if cached_value = deferred_commands.detect {|command| command == args }
+        cached_value
+      else
+        command = yield
+        deferred_commands << command
+        command
+      end
     end
 
     private
@@ -38,5 +43,8 @@ module ApplicationConfigurator
         method_name.to_s.gsub(/(?:^|_)([a-z])/) { $1.upcase }
       end
 
+      def deferred_commands
+        @deferred_commands ||= []
+      end
   end
 end

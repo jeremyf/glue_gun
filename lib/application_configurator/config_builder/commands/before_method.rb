@@ -3,23 +3,26 @@ module ApplicationConfigurator
   class ConfigBuilder
     module Commands
       class BeforeMethod < ApplicationConfigurator::ConfigBuilder::Command
-        attr_reader :klass, :method_name, :configuration_proc
-        def initialize(builder, klass, method_name, &configuration_proc)
+        attr_reader :klass, :method_name
+        def initialize(builder, klass, method_name)
           super(builder)
           @klass = klass
           @method_name = method_name
-          @configuration_proc = configuration_proc
+          @wrappers = []
+        end
+
+        attr_reader :wrappers
+        def <<(*wrappers)
+          @wrappers += Array(wrappers).flatten.compact
         end
 
         def call
-          defer do
-            klass.module_exec(method_name, method_to_wrap, configuration_proc) { |name, method, proc|
-              define_method(name) { |*args, &block|
-                proc.call(self)
-                method.bind(self).call(*args, &block)
-              }
+          klass.module_exec(method_name, method_to_wrap, wrappers) { |name, method, procs|
+            define_method(name) { |*args, &block|
+              procs.each {|proc| proc.call(self) }
+              method.bind(self).call(*args, &block)
             }
-          end
+          }
         end
         private
         def method_to_wrap

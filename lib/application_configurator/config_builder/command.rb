@@ -1,6 +1,12 @@
 module ApplicationConfigurator
   class ConfigBuilder
     class Command
+      def self.new(builder, *args, &block)
+        builder.cached_command(*args) {
+          super
+        }
+      end
+
       def initialize(builder)
         @builder = builder
       end
@@ -10,10 +16,6 @@ module ApplicationConfigurator
           "Method #call should be overriden in child classes"
       end
 
-      protected
-      def defer(&block)
-        @builder.defer(&block)
-      end
     end
   end
 end
