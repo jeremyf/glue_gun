@@ -2,7 +2,7 @@ require 'application_configurator/config_builder/command'
 module ApplicationConfigurator
   class ConfigBuilder
     module Commands
-      class BeforeMethod < ApplicationConfigurator::ConfigBuilder::Command
+      class AfterMethod < ApplicationConfigurator::ConfigBuilder::Command
 
         attr_reader :klass, :method_name
         def initialize(builder, klass, method_name)
@@ -14,8 +14,9 @@ module ApplicationConfigurator
         def call
           klass.module_exec(method_name, method_to_wrap, wrappers) { |name, method, procs|
             define_method(name) { |*args, &block|
+              returing_value = method.bind(self).call(*args, &block)
               procs.each {|proc| proc.call(self) }
-              method.bind(self).call(*args, &block)
+              returing_value
             }
           }
         end

@@ -1,7 +1,7 @@
 module ApplicationConfigurator
   class ConfigBuilder
     class Command
-      def self.new(builder, *args, &block)
+      def self.new(builder, *args)
         builder.cached_command(*args) {
           super
         }
@@ -9,7 +9,15 @@ module ApplicationConfigurator
 
       def initialize(builder)
         @builder = builder
+        @wrappers = []
       end
+
+      attr_reader :wrappers
+      protected :wrappers
+      def <<(wrapper)
+        @wrappers += Array(wrapper)
+      end
+
 
       def call
         raise NotImplementedError,
