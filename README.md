@@ -1,6 +1,6 @@
 # GlueGun
 
-TODO: Write a gem description
+A tool for sticking together things that shouldn't be.
 
 ## Installation
 

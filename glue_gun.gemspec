@@ -6,10 +6,14 @@ require 'glue_gun/version'
 Gem::Specification.new do |spec|
   spec.name          = "glue_gun"
   spec.version       = GlueGun::VERSION
-  spec.authors       = ["Jeremy Friesen"]
-  spec.email         = ["jeremy.n.friesen@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = [
+    "Jeremy Friesen"
+  ]
+  spec.email         = [
+    "jeremy.n.friesen@gmail.com"
+  ]
+  spec.description   = %q{A tool for sticking together things that shouldn't be.}
+  spec.summary       = %q{A tool for sticking together things that shouldn't be.}
   spec.homepage      = ""
   spec.license       = "APACHE2"
 
