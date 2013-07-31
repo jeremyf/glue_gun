@@ -12,9 +12,12 @@ Gem::Specification.new do |spec|
   spec.email         = [
     "jeremy.n.friesen@gmail.com"
   ]
-  spec.description   = %q{A tool for sticking together things that shouldn't be.}
-  spec.summary       = %q{A tool for sticking together things that shouldn't be.}
-  spec.homepage      = ""
+  spec.description   = <<-EOF
+  A tool for connecting parts of your application at configuration time.
+  Part thought experiment, part useful, part extensible via plugins.
+  EOF
+  spec.summary       = %q{A tool for connecting parts of your application at configuration time.}
+  spec.homepage      = "https://github.com/jeremyf/glue_gun"
   spec.license       = "APACHE2"
 
   spec.files         = `git ls-files`.split($/)
