@@ -1,9 +1,19 @@
 require "application_configurator/version"
 
 module ApplicationConfigurator
-  # Your code goes here...
+  module_function
+  def configuration=(object)
+    @configuration = object
+  end
+  def configuration
+    @configuration
+  end
+  def configure!
+    configuration.configure!
+  end
 end
 
-def ApplicationConfigurator(config_receiver)
-  yield(config_receiver)
+def ApplicationConfigurator(config)
+  yield(config) if block_given?
+  ApplicationConfigurator.configuration = config
 end
